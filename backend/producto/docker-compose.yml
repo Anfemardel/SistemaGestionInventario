@@ -1,0 +1,35 @@
+version: "3.8"
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_product
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: productdb
+      MYSQL_USER: product_user
+      MYSQL_PASSWORD: product_pass
+      MYSQL_ROOT_PASSWORD: root_pass
+    ports:
+      - "3307:3307"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build: .
+    container_name: product_service_app
+    depends_on:
+      - mysql
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+    ports:
+      - "8090:8090"
+    restart: on-failure
+
+volumes:
+  mysql_data:
