@@ -35,6 +35,7 @@ public class ProductServiceImpl implements ProductService {
         existing.setName(product.getName());
         existing.setDescription(product.getDescription());
         existing.setPrice(product.getPrice());
+        existing.setStock(product.getStock());
         if (product.getSku() == null || product.getSku().isEmpty()) {
             product.setSku(UUID.randomUUID().toString().substring(0, 8).toUpperCase());
         }

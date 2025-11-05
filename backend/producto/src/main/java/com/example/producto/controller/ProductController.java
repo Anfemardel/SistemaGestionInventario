@@ -36,7 +36,7 @@ public class ProductController {
         p.setDescription(req.getDescription());
         p.setPrice(req.getPrice());
         p.setSku(req.getSku());
-
+        p.setStock(req.getStock());
         Product created = service.create(p);
         return ResponseEntity.created(URI.create("/api/products/" + created.getId())).body(created);
     }
@@ -48,7 +48,7 @@ public class ProductController {
         p.setDescription(req.getDescription());
         p.setPrice(req.getPrice());
         p.setSku(req.getSku());
-
+        p.setStock(req.getStock());
         Product updated = service.update(id, p);
         return ResponseEntity.ok(updated);
     }

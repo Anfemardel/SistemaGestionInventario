@@ -12,4 +12,5 @@ public class ProductRequest {
     private String description;
     private BigDecimal price;
     private String sku;
+    private Integer stock;
 }

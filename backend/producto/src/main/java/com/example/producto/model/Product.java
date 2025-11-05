@@ -28,6 +28,9 @@ public class Product {
     @Column(unique = true, nullable = false)
     private String sku;
 
+    @Column(nullable = false)
+    private Integer stock;
+
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
 
