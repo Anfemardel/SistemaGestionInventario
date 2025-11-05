@@ -66,7 +66,9 @@ export class ProductFormComponent implements OnInit {
         this.submitted = false;
         setTimeout(() => {
           this.successMessage = '';
-        }, 3000);
+        }, 2000);
+        // Redirigir a la lista después de 4 segundos
+        setTimeout(() => this.router.navigate(['/productos']), 2000);
       },
       error: (err) => console.error(err)
     });

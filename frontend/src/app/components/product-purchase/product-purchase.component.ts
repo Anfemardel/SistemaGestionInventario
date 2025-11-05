@@ -17,6 +17,7 @@ export class ProductPurchaseComponent implements OnInit {
   compraForm!: FormGroup;
   successMessage = '';
   submitted = false;
+  total = 0;
   
 
   constructor(
@@ -31,6 +32,7 @@ export class ProductPurchaseComponent implements OnInit {
       this.products = data;
       this.initForm();
       this.loadStocks();
+      this.listenToChanges();
     });
   }
   initForm() {
@@ -55,6 +57,12 @@ export class ProductPurchaseComponent implements OnInit {
   }
   get items(): FormArray {
     return this.compraForm.get('items') as FormArray;
+  }
+  // 👇 Escucha cambios en el formulario para actualizar el total automáticamente
+  listenToChanges() {
+    this.compraForm.valueChanges.subscribe(() => {
+      this.total = this.getTotal();
+    });
   }
 
   getTotal(): number {

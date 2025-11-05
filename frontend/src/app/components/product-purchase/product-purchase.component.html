@@ -44,7 +44,9 @@
       </tbody>
     </table>
 
-    <h5>Total: ${{ getTotal() }}</h5>
+    <div class="text-end mt-3">
+  <h5><strong>Total:</strong> ${{ total | number: '1.0-2' }}</h5>
+</div>
 
     <button type="submit" class="btn btn-success">Confirmar Compra</button>
   </form>
