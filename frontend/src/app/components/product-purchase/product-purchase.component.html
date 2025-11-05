@@ -1,0 +1,51 @@
+<div class="container mt-4">
+  <h2>Comprar Productos</h2>
+
+  <div *ngIf="successMessage" class="alert alert-success">
+    {{ successMessage }}
+  </div>
+
+  <form [formGroup]="compraForm" (ngSubmit)="onSubmit()">
+    <table class="table table-striped table-hover mt-3">
+      <thead class="table-dark">
+        <tr>
+          <th>Nombre</th>
+          <th>Precio</th>
+          <th>Stock Disponible</th>
+          <th>Cantidad a Comprar</th>
+        </tr>
+      </thead>
+      <tbody formArrayName="items">
+        <tr *ngFor="let item of items.controls; let i=index" [formGroupName]="i">
+          <td>{{ item.get('name')?.value }}</td>
+          <td>${{ item.get('price')?.value }}</td>
+          <td>
+  <ng-container *ngIf="item.get('available')?.value !== null; else loading">
+    {{ item.get('available')?.value }}
+  </ng-container>
+  <ng-template #loading>⏳</ng-template>
+</td>
+          <td>
+            <input 
+              type="number" 
+              class="form-control" 
+              formControlName="quantity" 
+              [max]="item.get('available')?.value" 
+              min="0" 
+            />
+            <div *ngIf="submitted && item.get('quantity')?.errors?.min" class="text-danger">
+              La cantidad debe ser mayor a 0
+            </div>
+            <div *ngIf="submitted && item.get('quantity')?.value > item.get('available')?.value" class="text-danger">
+              No hay suficiente stock
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h5>Total: ${{ getTotal() }}</h5>
+
+    <button type="submit" class="btn btn-success">Confirmar Compra</button>
+  </form>
+</div>

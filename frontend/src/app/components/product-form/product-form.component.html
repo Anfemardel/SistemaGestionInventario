@@ -1,0 +1,41 @@
+<div class="container mt-4">
+  <h2>Crear Producto</h2>
+  <div *ngIf="successMessage" class="alert alert-success">
+    {{ successMessage }}
+</div>
+  <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label for="name" class="form-label">Nombre</label>
+      <input type="text" id="name" class="form-control" formControlName="name" />
+      <div *ngIf="submitted && f.name.errors" class="text-danger">
+        El nombre es obligatorio.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="description" class="form-label">Descripción</label>
+      <textarea id="description" class="form-control" formControlName="description"></textarea>
+      <div *ngIf="submitted && f.description.errors" class="text-danger">
+        La descripción es obligatoria.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="price" class="form-label">Precio</label>
+      <input type="number" id="price" class="form-control" formControlName="price" />
+      <div *ngIf="submitted && f.price.errors" class="text-danger">
+        El precio es obligatorio y debe ser mayor a 0.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="stock" class="form-label">Stock</label>
+      <input type="number" id="stock" class="form-control" formControlName="stock" />
+      <div *ngIf="submitted && f.stock.errors" class="text-danger">
+        El stock es obligatorio y debe ser mayor a 1.
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Crear Producto</button>
+  </form>
+</div>
